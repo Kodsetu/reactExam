@@ -20,6 +20,15 @@ export default function MovieCard({ movie, action }) {
 
   const { favorites, addToFavorites } = useContext(MoviesContext);
 
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  let tempDate = new Date(movie.release_date);
+  let releaseYear = tempDate.getFullYear();
+  let releaseMonth = tempDate.getMonth();
+  let releaseDay = tempDate.getDay();
+  let dateString = releaseDay.toString() + "-" + monthNames[releaseMonth].substring(0,3) + "-" + releaseYear.toString().substring(2,4);
+
+
   if (favorites.find((id) => id === movie.id)) {
     movie.favorite = true;
   } else {
@@ -59,10 +68,10 @@ export default function MovieCard({ movie, action }) {
       />
       <CardContent>
         <Grid container>
-          <Grid size={{ xs: 6 }}>
+          <Grid size={{ xs: 7 }}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
-              {movie.release_date}
+              {dateString}
             </Typography>
           </Grid>
           <Grid size={{ xs: 6 }}>
